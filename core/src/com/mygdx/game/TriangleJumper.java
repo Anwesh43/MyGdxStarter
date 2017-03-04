@@ -35,7 +35,7 @@ public class TriangleJumper extends ApplicationAdapter {
         pixmap.setColor(background_red,background_green,background_blue,background_alpha);
         pixmap.fill();
         jumpingTriangle.draw(pixmap);
-        Texture texture = new Texture(pixmap);
+        texture = new Texture(pixmap);
         sprite = new Sprite(texture);
         spriteBatch = new SpriteBatch();
         pixmap.dispose();
