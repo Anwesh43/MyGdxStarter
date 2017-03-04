@@ -19,8 +19,11 @@ public class JumpingTriangle {
         pixmap.setColor(Color.ORANGE);
         pixmap.fillTriangle(0,pixmap.getHeight(),pixmap.getWidth(),pixmap.getHeight(),pixmap.getWidth()/2,0);
     }
-    private void move() {
+    private void move(int w) {
         x+=10;
+        if(x>=w) {
+            x = 0;
+        }
         y+=20*dir;
         deg+=20*dir;
         if(y<=initY-180) {
@@ -39,8 +42,8 @@ public class JumpingTriangle {
             dir = 1;
         }
     }
-    public void update(Sprite sprite) {
-        move();
+    public void update(Sprite sprite,int w) {
+        move(w);
         sprite.setPosition(x,y);
         sprite.setRotation(deg);
     }
