@@ -9,9 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * Created by anweshmishra on 06/03/17.
  */
 public class EightObject {
-    private float x,y,w,dir = 0,deg=0;
-    public EightObject(float x,float y,float w) {
-        this.x = x;
+    private float x=0,y,w,dir = 0,deg=0;
+    public EightObject(float y,float w) {
         this.y = y;
         this.w = w;
     }
