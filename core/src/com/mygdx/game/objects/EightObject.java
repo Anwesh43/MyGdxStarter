@@ -15,10 +15,9 @@ public class EightObject {
         this.w = w;
     }
     public void draw(Pixmap pixmap,int w,int h) {
-        pixmap.fill();
         pixmap.setColor(Color.ORANGE);
-        pixmap.drawCircle(w/2,h/4,w/2);
-        pixmap.drawCircle(w/2,h/2+h/4,w/2);
+        pixmap.fillCircle(w/2,h/4,w/2);
+        pixmap.fillCircle(w/2,h/2+h/4,w/2);
     }
     public void start() {
         dir = dir == 0?1:0;
@@ -26,6 +25,9 @@ public class EightObject {
     private void update() {
         x+=dir*5;
         deg+=dir*5;
+        if(x>w) {
+            x = 0;
+        }
     }
     public void render(Sprite sprite, SpriteBatch batch) {
         update();
