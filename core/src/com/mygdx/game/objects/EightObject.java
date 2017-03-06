@@ -20,6 +20,9 @@ public class EightObject {
         pixmap.drawCircle(w/2,h/4,w/2);
         pixmap.drawCircle(w/2,h/2+h/4,w/2);
     }
+    public void start() {
+        dir = dir == 0?1:0;
+    }
     private void update() {
         x+=dir*5;
         deg+=dir*5;
