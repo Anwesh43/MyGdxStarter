@@ -15,6 +15,9 @@ public class CircularCone {
         this.x = 0;
         this.y = h/2;
     }
+    public float getX() {
+        return x;
+    }
     public void draw(Pixmap pixmap) {
         pixmap.setColor(Color.ORANGE);
         pixmap.fillCircle(pixmap.getWidth()/2,pixmap.getHeight()/2,pixmap.getWidth()/4);
@@ -23,14 +26,21 @@ public class CircularCone {
     private void update() {
         x+=dir*10;
         if(Math.abs(deg)<90) {
-            deg+=10*dir;
+            deg-=10*dir;
+        }
+        if(x<-w/6) {
+            x = w-w/6;
+        }
+        if(x>w) {
+            x = 0;
         }
     }
     public void setDir(float dir) {
         this.dir = dir;
-        deg+=10*dir;
+        deg-=10*dir;
     }
     public void render(Sprite sprite, SpriteBatch spriteBatch) {
+        update();
         sprite.setPosition(x,y);
         sprite.setRotation(deg);
         sprite.draw(spriteBatch);
