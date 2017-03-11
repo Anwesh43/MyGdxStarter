@@ -22,6 +22,9 @@ public class CurpBall {
         return new Pixmap(pixmap.getWidth(),pixmap.getHeight()/2, Pixmap.Format.RGB888);
 
     }
+    public void toggleMovement() {
+        dir = dir==0?1:0;
+    }
     public void draw(Pixmap pixmap,Color backcolor) {
         Pixmap firstHalfPixmap = getHalfPixmap(pixmap);
         Pixmap secondHalfPixmap = getHalfPixmap(pixmap);
