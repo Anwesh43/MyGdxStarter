@@ -37,13 +37,13 @@ public class CurpBallRunner extends ApplicationAdapter {
         texture = new Texture(pixmap);
         sprite = new Sprite(texture);
         spriteBatch = new SpriteBatch();
-        pixmap.dispose();
         Gdx.input.setInputProcessor(new InputProcessorAdapter(){
             public boolean touchDown(int x,int y,int pntr,int btn) {
                 curpBall.toggleMovement();
                 return true;
             }
         });
+        pixmap.dispose();
     }
     public void dispose() {
         texture.dispose();
