@@ -3,7 +3,6 @@ package com.mygdx.game.objects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -46,9 +45,7 @@ public class CurpBall {
     }
     public void render(SpriteBatch spriteBatch, Sprite sprite) {
         update();
-        spriteBatch.begin();
         sprite.setPosition(x,y);
         sprite.setRotation(deg);
-        spriteBatch.end();
     }
 }
