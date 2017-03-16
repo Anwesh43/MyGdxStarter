@@ -24,7 +24,8 @@ public class PhysicsDemoApp extends ApplicationAdapter {
     public void create() {
         w = Gdx.graphics.getWidth();
         h = Gdx.graphics.getHeight();
-        world = new World(new Vector2(0,-98f),true);
+        world = new World(new Vector2(20,-98f),true);
+
         Pixmap pixmap = new Pixmap(w/10,w/10, Pixmap.Format.RGB888);
         pixmap.fill();
         pixmap.setColor(Color.GREEN);
@@ -32,9 +33,9 @@ public class PhysicsDemoApp extends ApplicationAdapter {
         pixmap.fillRectangle(w/40,w/20,w/20,w/20);
         texture = new Texture(pixmap);
         sprite = new Sprite(texture);
-        sprite.setPosition(w/2-w/20,h/2-w/20);
+        sprite.setPosition(0,h/2-w/20);
         spriteBatch = new SpriteBatch();
-        BodyDef bodyDef = new BodyDef();
+        final BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(sprite.getX()+sprite.getWidth()/2,sprite.getY()+sprite.getHeight()/2);
         body = world.createBody(bodyDef);
@@ -45,14 +46,22 @@ public class PhysicsDemoApp extends ApplicationAdapter {
         fixtureDef.density = 1;
         Fixture fixture = body.createFixture(fixtureDef);
         pixmap.dispose();
+
+        Gdx.input.setInputProcessor(new InputProcessorAdapter(){
+            public boolean touchDown(int x,int y,int pntr,int btn) {
+                body.setLinearVelocity(100,90000);
+                return true;
+            }
+        });
     }
     public void render() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl.glClearColor(0,0,0,1);
-        world.step()
+        world.step(Gdx.graphics.getDeltaTime(),6,2);
         spriteBatch.begin();
         sprite.draw(spriteBatch);
-        sprite.setRotation(sprite.getRotation()+3);
+        sprite.setPosition(body.getPosition().x,body.getPosition().y);
+        sprite.setRotation(body.getAngle());
         spriteBatch.end();
     }
     public void dispose() {
