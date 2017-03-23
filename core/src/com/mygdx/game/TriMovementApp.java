@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -16,31 +17,33 @@ public class TriMovementApp extends ApplicationAdapter {
     private Sprite sprite;
     private SpriteBatch spriteBatch;
     private AnimationQueue animationQueue = new AnimationQueue();
-    private int w,h;
+    private int w,h,x=0,y=0;
     public void create() {
         w = Gdx.graphics.getWidth();
         h = Gdx.graphics.getHeight();
-        Pixmap pixmap = new Pixmap(w/3,h/3, Pixmap.Format.RGB888);
+        x = w/3;
+        y = h/3;
+        Pixmap pixmap = new Pixmap(w/10,w/10, Pixmap.Format.RGB888);
         DemoAQBall.draw(pixmap);
         texture = new Texture(pixmap);
         sprite = new Sprite(texture);
         sprite.setPosition(w/3,h/3);
         spriteBatch = new SpriteBatch();
         Gdx.input.setInputProcessor(new InputProcessorAdapter(){
-            public boolean touchDown(int x,int y,int pntr,int btn) {
+            public boolean touchDown(int x1,int y1,int pntr,int btn) {
                 animationQueue.addAnimation(new ObjectAnimation() {
                     @Override
                     public boolean isDone() {
-                        boolean condition =  sprite.getX()>=(2*w/3);
+                        boolean condition =  x>=2*w/3;
                         if(condition) {
-                            sprite.setX(2*w/3);
+                            x = 2*w/3;
                         }
                         return condition;
                     }
 
                     @Override
                     public void animate() {
-                        sprite.setPosition(sprite.getX()+w/10,sprite.getY());
+                        x+=w/10;
                     }
                     public int hashCode() {
                         return 0;
@@ -49,16 +52,18 @@ public class TriMovementApp extends ApplicationAdapter {
                 animationQueue.addAnimation(new ObjectAnimation() {
                     @Override
                     public boolean isDone() {
-                        boolean condition =  sprite.getX()<=w/2 && sprite.getY()<=h/6;
+                        boolean condition =  x<=w/2 && y<=h/6;
                         if(condition) {
-                            sprite.setPosition(w/2,h/6);
+                            x = w/2;
+                            y = h/6;
                         }
                         return condition;
                     }
 
                     @Override
                     public void animate() {
-                        sprite.setPosition(sprite.getX()-w/30,sprite.getY()-h/30);
+                        x-=w/30;
+                        y-=h/30;
                     }
                     public int hashCode() {
                         return 1;
@@ -67,16 +72,18 @@ public class TriMovementApp extends ApplicationAdapter {
                 animationQueue.addAnimation(new ObjectAnimation() {
                     @Override
                     public boolean isDone() {
-                        boolean condition =  sprite.getX()<=w/3;
+                        boolean condition =  x<=w/3 && y<=h/3;
                         if(condition) {
-                            sprite.setPosition(w/3,h/3);
+                            x = w/3;
+                            y = h/3;
                         }
                         return condition;
                     }
 
                     @Override
                     public void animate() {
-                        sprite.setPosition(sprite.getX()-w/30,sprite.getY()+h/30);
+                        x-=w/30;
+                        y+=h/30;
                     }
                     public int hashCode() {
                         return 2;
@@ -88,8 +95,11 @@ public class TriMovementApp extends ApplicationAdapter {
         pixmap.dispose();
     }
     public void render() {
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClearColor(0,0,0,1);
         spriteBatch.begin();
         sprite.draw(spriteBatch);
+        sprite.setPosition(x,y);
         animationQueue.execute();
         spriteBatch.end();
     }

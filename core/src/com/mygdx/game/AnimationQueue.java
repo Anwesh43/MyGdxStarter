@@ -12,11 +12,17 @@ public class AnimationQueue {
         animations.add(objectAnimation);
     }
     public void execute() {
-        while(animations.size()>0) {
+        if(animations.size()>0) {
             ObjectAnimation objectAnimation = animations.get(0);
             objectAnimation.animate();
             if(objectAnimation.isDone()) {
                 animations.remove(objectAnimation);
+            }
+            try {
+                Thread.sleep(40);
+            }
+            catch (Exception ex) {
+
             }
         }
     }
