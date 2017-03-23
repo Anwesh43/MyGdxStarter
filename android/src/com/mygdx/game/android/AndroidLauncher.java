@@ -15,7 +15,7 @@ public class AndroidLauncher extends AndroidApplication {
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		initialize(new PhysicsDemoApp(), config);
+		initialize(new TriMovementApp(), config);
 		//int the launcher we must specify which app to run
 	}
 }
